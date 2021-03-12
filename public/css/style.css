@@ -1,0 +1,76 @@
+html {
+}
+
+body {
+    margin-top: 30px;
+}
+
+#subContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#work-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    border-style: solid;
+    border-radius: 25px;
+    border-color: #0099ff;
+    margin: 10px;
+    width: 25vw;
+}
+
+#btn-name {
+    display: flex;
+    flex-direction: column;
+    border-bottom-style: solid;
+}
+
+#btn-badge {
+    margin-top: 10px;
+}
+
+#work-list-text {
+    overflow-y: scroll;
+    height: 400px;
+}
+
+#cell-text {
+    display: flex;
+    flex-direction: row;
+    border-style: none;
+    border-radius: 20px;
+    background-color: #e6e6e6;
+    margin: 10px;
+    height: 70px;
+    width: 95%;
+    justify-items: center;
+    align-items: center;
+}
+
+#cell-text:hover #btn-dropdown {
+    display: block;
+}
+
+#text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 20px;
+    margin-left: 10px;
+    width: 19vw;
+}
+
+#btn-dropdown {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#btn-input {
+    font-size: 30px;
+    width: 100px;
+    margin-bottom: 10px;
+}

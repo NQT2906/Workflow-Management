@@ -1,0 +1,388 @@
+<html ng-app = 'app.works'>
+    <head>
+        <title>
+            Workflow Management
+        </title>
+
+        <!-- Load CDN style -->
+        <link href = '//stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' rel = 'stylesheet' />
+        <link href = '//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel = 'stylesheet' />
+        <link href = '//cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.10.2/css/xeditable.min.css' rel = 'stylesheet' />
+        
+        <!-- Load app styles -->
+        <link href = 'assets/css/style.css' rel = 'stylesheet' />
+
+        <!-- Load CDN script -->
+        <script src = '//cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js'></script>
+        <script src = '//cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.10.2/js/xeditable.min.js'></script>
+        <script src = '//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+        <!-- <script src = '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js'></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src = '//stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
+        <!-- <script src = '//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js'></script> -->
+
+        <!-- Load app -->
+        <script src = 'assets/js/main/app.js'></script>
+        <script src = 'assets/js/main/services/svWorks.js'></script>
+        
+
+    </head>
+
+    <body ng-controller = 'todoController'>
+        <div class = 'container'>
+            
+            <div id = 'subContainer'>
+                <div id = 'work-list'>
+                    <div id = 'btn-name' class = 'text-center'>
+                        <h1>
+                            <button type = 'button' class = 'btn btn-primary' id = 'btn-badge'>
+                                {{ headers[0] }} <span class="badge badge-light">{{ getLenSection(0) }}</span>
+                            </button>
+                        </h1>
+                    </div>
+                    <div id = 'work-list-text'>
+                        <div id = 'cell-text' ng-repeat = 'work in works' ng-if = 'work.status == 0'>
+                            <div id = 'text' ng-click = 'openModal(work)' data-toggle="modal" 
+                            data-target="#contentModal" role="button">
+                                {{ work.text }}
+                            </div>
+                            
+                            <div id = 'btn-dropdown'>
+                                <div class="btn-group dropdown">
+                                    <a id = "dropdownMenuButton" data-toggle="dropdown" aria-haspopup = "true" 
+                                    aria-expanded="false">
+                                        <i class="fa fa-bars" aria-hidden="true"></i>
+                                    </a>
+                                    <div id = 'dropdown-menu' class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class = "dropdown-item" ng-click = 'openModal(work)' data-toggle="modal" 
+                                        data-target="#updateModal" role="button">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            Update
+                                        </a>
+                                        
+                                        <a class = "dropdown-item" ng-click = 'deleteWork(work)'>
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            Delete
+                                        </a>
+                                        
+                                        <a class = "dropdown-item" ng-click = 'next(work)'>
+                                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                            Next
+                                        </a>
+                                        
+                                        <a class = "dropdown-item" ng-click = 'openModal(work)' data-toggle="modal" 
+                                        data-target="#moveModal" role="button">
+                                            <i class="fa fa-forward" aria-hidden="true"></i>
+                                            Move to
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                <div id = 'work-list'>
+                    <div id = 'btn-name' class = 'text-center'>
+                        <h1>
+                            <button type = 'button' class = 'btn btn-primary' id = 'btn-badge'>
+                                {{ headers[1] }} <span class="badge badge-light">{{ getLenSection(1) }}</span>
+                            </button>
+                        </h1>
+                    </div>
+                    <div id = 'work-list-text'>
+                        <div id = 'cell-text' ng-repeat = 'work in works' ng-if = 'work.status == 1'>
+                            <div id = 'text' ng-click = 'openModal(work)' data-toggle="modal" 
+                            data-target="#contentModal" role="button">
+                                {{ work.text }}
+                            </div>
+                            
+                            <div id = 'btn-dropdown'>
+                                <div class="btn-group dropdown">
+                                    <a id = "dropdownMenuButton" data-toggle="dropdown" aria-haspopup = "true" 
+                                    aria-expanded="false">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                    </a>
+                                    <div id = 'dropdown-menu' class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class = "dropdown-item" ng-click = 'openModal(work)' data-toggle="modal" 
+                                        data-target="#updateModal" role="button">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            Update
+                                        </a>
+                                        
+                                        <a class = "dropdown-item" ng-click = 'deleteWork(work)'>
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            Delete
+                                        </a>
+                                        
+                                        <a class = "dropdown-item" ng-click = 'next(work)'>
+                                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                            Next
+                                        </a>
+
+                                        <a class = "dropdown-item" ng-click = 'back(work)'>
+                                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                            Back
+                                        </a>
+                                        
+                                        <a class = "dropdown-item" ng-click = 'openModal(work)' data-toggle="modal" 
+                                        data-target="#moveModal" role="button">
+                                            <i class="fa fa-forward" aria-hidden="true"></i>
+                                            Move to
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id = 'work-list'>
+                    <div id = 'btn-name' class = 'text-center'>
+                        <h1>
+                            <button type = 'button' class = 'btn btn-primary' id = 'btn-badge'>
+                                {{ headers[2] }} <span class="badge badge-light">{{ getLenSection(2) }}</span>
+                            </button>
+                        </h1>
+                    </div>
+                    <div id = 'work-list-text'>
+                        <div id = 'cell-text' ng-repeat = 'work in works' ng-if = 'work.status == 2'>
+                            <div id = 'text' ng-click = 'openModal(work)' data-toggle="modal" 
+                            data-target="#contentModal" role="button">
+                                {{ work.text }}
+                            </div>
+                            
+                            <div id = 'btn-dropdown'>
+                                <div class="btn-group dropdown">
+                                    <a id = "dropdownMenuButton" data-toggle="dropdown" aria-haspopup = "true" 
+                                    aria-expanded="false">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                    </a>
+                                    <div id = 'dropdown-menu' class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class = "dropdown-item" ng-click = 'openModal(work)' data-toggle="modal" 
+                                        data-target="#updateModal" role="button">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            Update
+                                        </a>
+                                        
+                                        <a class = "dropdown-item" ng-click = 'deleteWork(work)'>
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            Delete
+                                        </a>
+                                        
+                                        <a class = "dropdown-item" ng-click = 'back(work)'>
+                                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                            Back
+                                        </a>
+                                        
+                                        <a class = "dropdown-item" ng-click = 'openModal(work)' data-toggle="modal" 
+                                        data-target="#moveModal" role="button">
+                                            <i class="fa fa-forward" aria-hidden="true"></i>
+                                            Move to
+                                        </a>
+
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="updateModalLabel">Update</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" ng-controller = 'todoController'>
+                                <div id="TextBtnCtrl">
+                                    Text:  
+                                    <br />
+                                    <a submit-on-enter="true" editable-text="work.text"
+                                    onaftersave = 'updateWork(work)' e-required>
+                                        {{ work.text || 'Place what do you want to do?' }}
+                                    </a>
+                                    <br /><br />
+                                    Link:  
+                                    <br />
+                                    <a submit-on-enter="true" editable-text="work.link"
+                                    onaftersave = 'updateWork(work)'>
+                                        {{ work.link || 'Place link for it' }}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="contentModal" tabindex="-1" aria-labelledby="contentModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="contentModalLabel">Content</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" ng-controller = 'todoController'>
+                                <div>
+                                    Text:  
+                                    <br />
+                                    {{ work.text || '' }}
+                                    <br /><br />
+                                    Status:  
+                                    <br />
+                                    <span>
+                                        {{ getStatus(work) }}
+                                    </span>
+                                    <br /><br />
+                                    Link:  
+                                    <br />
+                                    <a href = 'https://{{work.link}}'>
+                                        {{ work.link || '' }}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="moveModal" tabindex="-1" aria-labelledby="moveModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="moveModalLabel">Move</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" ng-controller = 'todoController'>
+                                <div>
+                                    You want to move it to:
+                                    <button type="button" class="btn btn-primary" ng-click = "moveTo(work, 0)" data-dismiss="modal">
+                                        To do
+                                    </button>
+                                    <button type="button" class="btn btn-primary" ng-click = "moveTo(work, 1)" data-dismiss="modal">
+                                        Doing
+                                    </button>
+                                    <button type="button" class="btn btn-primary" ng-click = "moveTo(work, 2)" data-dismiss="modal">
+                                        Done
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="inputModal" tabindex="-1" aria-labelledby="inputModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="inputModalLabel">Input</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" ng-controller = 'todoController'>
+                                <div id = 'todo-form' class = 'row justify-content-md-center'>
+                                    <div class = 'col-sm-8 col-sm-offset-2 text-center'>
+                                        <form >
+                                            <div class = 'form-group'>
+                                                <input type = 'text' ng-model = 'formData.text' name = 'txt'
+                                                class = 'form-control input-lg text-center' placeholder="What will you study?">
+                                                <br />
+                                                <input type = 'text' ng-model = 'formData.link' name = 'lnk'
+                                                class = 'form-control input-lg text-center' placeholder="What link of course?">
+                                            </div>
+                                            <button type = 'submit' class = 'btn btn-primary btn-lg' ng-click = 'createWork()'
+                                            >
+                                                Submit
+                                            </button>
+                                            <button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class = 'text-center'>
+                <!-- <a class = 'btn btn-primary text-center' ng-click = 'inputModal(work)' data-toggle="modal" 
+                data-target="#inputModal" role="button"> -->
+                <a id = 'btn-input' class="btn btn-primary" data-toggle="collapse" href="#collapseInput" 
+                role="button" aria-expanded="false" aria-controls="collapseInput">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </a>
+            </div>
+            <p ng-show = 'loading' class = 'text-center'>
+                <span class = 'fa fa-spinner fa-spin fa-3x'></span>
+            </p>
+
+            <div class="collapse" id="collapseInput">
+                <div id = 'todo-form' class = 'row  justify-content-md-center'>
+                    <div class = 'col-sm-8 col-sm-offset-2 text-center'>
+                        <form>
+                            <div class = 'form-group'>
+                                <div class = 'row text-center'>
+                                    <span class="input-group-text">Text</span>
+                                    <input type = 'text' ng-model = 'formData.text' name = 'txt'
+                                    class = 'form-control input-lg text-center' placeholder="What will you study?">
+                                </div>
+                                <br />
+                                <div class = 'row text-center'>
+                                    <span class="input-group-text">Link</span>
+                                    <input type = 'text' ng-model = 'formData.link' name = 'lnk'
+                                    class = 'form-control input-lg text-center' placeholder="What link of course?">
+                                </div>
+                            </div>
+                            <button type = 'submit' class = 'btn btn-primary btn-lg' ng-click = 'createWork()'>
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- <form>
+                    <div class = 'form-group'>
+                        <div class="input-group">
+                            <span class="input-group-text">Text</span>&emsp;
+                            <input type="text" aria-label="First name" class="form-control" ng-model = 'formData.text' >
+                        </div> 
+                        <br />
+                        <div class="input-group">
+                            <span class="input-group-text">First and last name</span>&emsp;
+                            <input type="text" aria-label="First name" class="form-control" ng-model = 'formData.link' >
+                        </div>
+                    </div>
+
+                    <button type = 'submit' class = 'btn btn-primary btn-lg' ng-click = 'createWork()'>
+                        Submit
+                    </button>
+                </form>  -->
+                <!-- <form>
+                    <label for="fname">Text:</label>
+                    <input type="text" id="fname1" name="fname2"><br><br>
+                    <label for="fname">First name:</label>
+                    <input type="text" id="fname1" name="fname2"><br><br>
+                    <input type="submit" value="Submit">
+                </form> -->
+            </div>
+
+        </div>
+    </body>
+</html>

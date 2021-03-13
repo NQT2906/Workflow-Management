@@ -44,7 +44,7 @@ module.exports = function(app) {
             status: req.body.status,
             content: req.body.content,
             link: req.body.link,
-            // deadline: req.body.deadline,
+            deadline: req.body.deadline,
         }, function(err, data) {
             if (err) return res.status(500).json(err);
             else getWorks(res);

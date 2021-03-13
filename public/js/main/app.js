@@ -1,6 +1,6 @@
-var app = angular.module('app.works', ['xeditable']);
+var app = angular.module('app.works', ['xeditable', "ui.bootstrap"]);
 
-app.controller('todoController', function($scope, svWorks) {
+app.controller('todoController', function($scope, svWorks, $filter) {
     $scope.headers = ["To do", "Doing", "Done"];
     $scope.works = [];
     $scope.loading = true;
@@ -20,13 +20,14 @@ app.controller('todoController', function($scope, svWorks) {
             alert("Intro mustn't be empty!!!");
             $scope.loading = false;
         } else {
+            var datetime = new Date();
             var work = {
                 intro: $scope.formData.intro,
                 content: $scope.formData.content || '',
                 link: $scope.formData.link || '',
-                status: 0,
-                // deadline: $scope.formData.deadline || '',
-                // timeRegister: Date.now().format('MM/DD/YYYY'),
+                status: $scope.formData.status || 0,
+                deadline: $scope.formData.deadline,
+                timeRegister: (datetime),
             };
 
             svWorks.create(work).then(function(res) {
@@ -35,7 +36,8 @@ app.controller('todoController', function($scope, svWorks) {
                 $scope.formData.intro = '';
                 $scope.formData.link = '';
                 $scope.formData.content = '';
-                // $scope.formData.deadline = '';
+                $scope.formData.status = '';
+                $scope.formData.deadline = 'empty';
             }, function(err) {
                 if (err) throw err;
             });
@@ -112,17 +114,25 @@ app.controller('todoController', function($scope, svWorks) {
         $modal.hide();
     };
 
-    $scope.getNowDate = function() {
-        var datetime = new Date();
-        return (datetime.toISOString().slice(0,10));
-    };
-
     $scope.openModal = function (work) {
         $scope.work = work;
         $modal.open({
             scope: $scope,
         })
     };
+    
+
+    // $scope.opened = {};
+
+	// $scope.openDate = function($event, elementOpened) {
+	// 	$event.preventDefault();
+	// 	$event.stopPropagation();
+
+	// 	$scope.opened[elementOpened] = !$scope.opened[elementOpened];
+    //     $event.on('$destroy', function() {
+    //         $scope.$destroy();
+    //     });
+	// };
 
 });
 

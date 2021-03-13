@@ -78,6 +78,11 @@ body {
 #form-content {
     background-color: #e6e6e6;
     border-radius: 10px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 /* #form-cell-text {

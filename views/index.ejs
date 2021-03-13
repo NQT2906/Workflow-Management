@@ -19,6 +19,7 @@
         <!-- <script src = '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js'></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src = '//stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/ui-bootstrap4@3.0.6/dist/ui-bootstrap-tpls.js"></script>
         <!-- <script src = '//maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js'></script> -->
 
         <!-- Load app -->
@@ -202,24 +203,40 @@
                                 <div id="TextBtnCtrl">
                                     Introduction:  
                                     <br />
-                                    <a submit-on-enter="true" editable-text="work.intro"
+                                    <a id = 'form-content' submit-on-enter="true" editable-text="work.intro"
                                     onaftersave = 'updateWork(work)' e-required>
                                         {{ work.intro || 'Place what do you want to do?' }}
                                     </a>
                                     <br /><br />
                                     Description:  
                                     <br />
-                                    <a submit-on-enter="true" editable-text="work.content"
+                                    <a id = 'form-content' submit-on-enter="true" editable-text="work.content"
                                     onaftersave = 'updateWork(work)'>
                                         {{ work.content || 'Description of work' }}
                                     </a>
                                     <br /><br />
                                     Link:  
                                     <br />
-                                    <a submit-on-enter="true" editable-text="work.link"
+                                    <a id = 'form-content' submit-on-enter="true" editable-text="work.link"
                                     onaftersave = 'updateWork(work)'>
                                         {{ work.link || 'Place link for it' }}
                                     </a>
+                                    <br /><br />
+                                    Time register:
+                                    <br />  
+                                    <a id = 'form-content' submit-on-enter="true" editable-date="work.timeRegister"
+                                    onaftersave = 'updateWork(work)'>
+                                        {{ (work.timeRegister | date:"MM/dd/yyyy") || 'empty' }}
+                                    </a>
+                                    
+                                    <br /><br />
+                                    Deadline:  
+                                    <br />
+                                    <a id = 'form-content' submit-on-enter="true" editable-date="work.deadline"
+                                    onaftersave = 'updateWork(work)'>
+                                        {{ (work.deadline | date:"MM/dd/yyyy") || 'empty' }}
+                                    </a>
+                                    
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -243,7 +260,9 @@
                                     Introduction:  
                                     <br />
                                     <div id = 'form-content'>
-                                        {{ work.intro || '' }}
+                                        <span id = 'content'>
+                                            {{ work.intro || '' }}
+                                        </span>
                                     </div>
                                     <br />
 
@@ -263,9 +282,26 @@
 
                                     Link:  
                                     <br />
-                                    <a href = 'https://{{work.link}}'>
-                                        {{ work.link || '' }}
-                                    </a>
+                                    <div id = 'form-content'>
+                                        <a href = 'https://{{work.link}}'>
+                                            {{ work.link || '' }}
+                                        </a>
+                                    </div>
+                                    
+                                    <br />
+                                    
+                                    Time register:  
+                                    <br />
+                                    <div id = 'form-content'>
+                                        {{ work.timeRegister | date:"MM/dd/yyyy" }}
+                                    </div>
+                                    <br />
+
+                                    Deadline:  
+                                    <br />
+                                    <div id = 'form-content'>
+                                        {{ work.deadline | date:"MM/dd/yyyy" }}
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -302,7 +338,7 @@
                     </div>
                 </div>
 
-                <div class="modal fade" id="inputModal" tabindex="-1" aria-labelledby="inputModalLabel" aria-hidden="true">
+                <!-- <div class="modal fade" id="inputModal" tabindex="-1" aria-labelledby="inputModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -340,12 +376,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 
             </div>
             <div class = 'text-center'>
-                <!-- <a class = 'btn btn-primary text-center' ng-click = 'inputModal(work)' data-toggle="modal" 
-                data-target="#inputModal" role="button"> -->
                 <a id = 'btn-input' class="btn btn-primary" data-toggle="collapse" href="#collapseInput" 
                 role="button" aria-expanded="false" aria-controls="collapseInput">
                     <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -361,7 +395,7 @@
                         <form>
                             <div class = 'form-group'>
                                 <div class = 'row text-center'>
-                                    <span class="input-group-text">Intro</span>
+                                    <span class="input-group-text">Intro *</span>
                                     <input type = 'text' ng-model = 'formData.intro' name = 'txt'
                                     class = 'form-control input-lg text-center' placeholder="What will you study?">
                                 </div>
@@ -377,6 +411,22 @@
                                     <input type = 'text' ng-model = 'formData.link' name = 'lnk'
                                     class = 'form-control input-lg text-center' placeholder="What link of course?">
                                 </div>
+                                <br />
+                                <div class = 'row text-center'>
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                                    </div>
+                                    <select class="custom-select" id="inputGroupSelect01" ng-model = 'formData.status'>
+                                        <option value="0">To do</option>
+                                        <option value="1">Doing</option>
+                                        <option value="2">Done</option>
+                                    </select>
+                                </div>
+                                <br />
+                                <div class = 'row text-center'>
+                                    <span class="input-group-text">Deadline</span>
+                                    <input ng-model = 'formData.deadline' class="form-control" type="date">
+                                </div>
                             </div>
                             <button type = 'submit' class = 'btn btn-primary btn-lg' ng-click = 'createWork()'>
                                 Submit
@@ -384,32 +434,7 @@
                         </form>
                     </div>
                 </div>
-                <!-- <form>
-                    <div class = 'form-group'>
-                        <div class="input-group">
-                            <span class="input-group-text">Text</span>&emsp;
-                            <input type="text" aria-label="First name" class="form-control" ng-model = 'formData.text' >
-                        </div> 
-                        <br />
-                        <div class="input-group">
-                            <span class="input-group-text">First and last name</span>&emsp;
-                            <input type="text" aria-label="First name" class="form-control" ng-model = 'formData.link' >
-                        </div>
-                    </div>
-
-                    <button type = 'submit' class = 'btn btn-primary btn-lg' ng-click = 'createWork()'>
-                        Submit
-                    </button>
-                </form>  -->
-                <!-- <form>
-                    <label for="fname">Text:</label>
-                    <input type="text" id="fname1" name="fname2"><br><br>
-                    <label for="fname">First name:</label>
-                    <input type="text" id="fname1" name="fname2"><br><br>
-                    <input type="submit" value="Submit">
-                </form> -->
             </div>
-
         </div>
     </body>
 </html>

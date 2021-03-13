@@ -44,7 +44,7 @@
                         <div id = 'cell-text' ng-repeat = 'work in works' ng-if = 'work.status == 0'>
                             <div id = 'text' ng-click = 'openModal(work)' data-toggle="modal" 
                             data-target="#contentModal" role="button">
-                                {{ work.text }}
+                                {{ work.intro }}
                             </div>
                             
                             <div id = 'btn-dropdown'>
@@ -94,7 +94,7 @@
                         <div id = 'cell-text' ng-repeat = 'work in works' ng-if = 'work.status == 1'>
                             <div id = 'text' ng-click = 'openModal(work)' data-toggle="modal" 
                             data-target="#contentModal" role="button">
-                                {{ work.text }}
+                                {{ work.intro }}
                             </div>
                             
                             <div id = 'btn-dropdown'>
@@ -149,7 +149,7 @@
                         <div id = 'cell-text' ng-repeat = 'work in works' ng-if = 'work.status == 2'>
                             <div id = 'text' ng-click = 'openModal(work)' data-toggle="modal" 
                             data-target="#contentModal" role="button">
-                                {{ work.text }}
+                                {{ work.intro }}
                             </div>
                             
                             <div id = 'btn-dropdown'>
@@ -200,11 +200,18 @@
                             </div>
                             <div class="modal-body" ng-controller = 'todoController'>
                                 <div id="TextBtnCtrl">
-                                    Text:  
+                                    Introduction:  
                                     <br />
-                                    <a submit-on-enter="true" editable-text="work.text"
+                                    <a submit-on-enter="true" editable-text="work.intro"
                                     onaftersave = 'updateWork(work)' e-required>
-                                        {{ work.text || 'Place what do you want to do?' }}
+                                        {{ work.intro || 'Place what do you want to do?' }}
+                                    </a>
+                                    <br /><br />
+                                    Description:  
+                                    <br />
+                                    <a submit-on-enter="true" editable-text="work.content"
+                                    onaftersave = 'updateWork(work)'>
+                                        {{ work.content || 'Description of work' }}
                                     </a>
                                     <br /><br />
                                     Link:  
@@ -233,16 +240,27 @@
                             </div>
                             <div class="modal-body" ng-controller = 'todoController'>
                                 <div>
-                                    Text:  
+                                    Introduction:  
                                     <br />
-                                    {{ work.text || '' }}
-                                    <br /><br />
+                                    <div id = 'form-content'>
+                                        {{ work.intro || '' }}
+                                    </div>
+                                    <br />
+
+                                    Content:  
+                                    <br />
+                                    <div id = 'form-content'>
+                                        {{ work.content || '' }}
+                                    </div>
+                                    <br />
+
                                     Status:  
                                     <br />
-                                    <span>
+                                    <div id = 'form-content'>
                                         {{ getStatus(work) }}
-                                    </span>
-                                    <br /><br />
+                                    </div>
+                                    <br />
+
                                     Link:  
                                     <br />
                                     <a href = 'https://{{work.link}}'>
@@ -298,8 +316,11 @@
                                     <div class = 'col-sm-8 col-sm-offset-2 text-center'>
                                         <form >
                                             <div class = 'form-group'>
-                                                <input type = 'text' ng-model = 'formData.text' name = 'txt'
+                                                <input type = 'text' ng-model = 'formData.intro' name = 'txt'
                                                 class = 'form-control input-lg text-center' placeholder="What will you study?">
+                                                <br />
+                                                <input type = 'text' ng-model = 'formData.content' name = 'ds'
+                                                class = 'form-control input-lg text-center' placeholder="Descript for this course">
                                                 <br />
                                                 <input type = 'text' ng-model = 'formData.link' name = 'lnk'
                                                 class = 'form-control input-lg text-center' placeholder="What link of course?">
@@ -340,9 +361,15 @@
                         <form>
                             <div class = 'form-group'>
                                 <div class = 'row text-center'>
-                                    <span class="input-group-text">Text</span>
-                                    <input type = 'text' ng-model = 'formData.text' name = 'txt'
+                                    <span class="input-group-text">Intro</span>
+                                    <input type = 'text' ng-model = 'formData.intro' name = 'txt'
                                     class = 'form-control input-lg text-center' placeholder="What will you study?">
+                                </div>
+                                <br />
+                                <div class = 'row text-center'>
+                                    <span class="input-group-text">Content</span>
+                                    <input type = 'text' ng-model = 'formData.content' name = 'lnk'
+                                    class = 'form-control input-lg text-center' placeholder="Descript for this course">
                                 </div>
                                 <br />
                                 <div class = 'row text-center'>

@@ -21,11 +21,12 @@ module.exports = function(app) {
 
     app.post('/api/work', function(req, res) {
         var work = {
-            text: req.body.text,
+            intro: req.body.intro,
             link: req.body.link,
             status: req.body.status,
-            // deadline: req.body.deadline,
-            // timeRegister: req.body.timeRegister,
+            content: req.body.content,
+            deadline: req.body.deadline,
+            timeRegister: req.body.timeRegister,
         };
 
         Works.create(work, function(err, data) {
@@ -39,8 +40,9 @@ module.exports = function(app) {
             res.status(500).send('ID is required!!!');
         }
         Works.update({_id: req.body._id}, {
-            text: req.body.text,
+            intro: req.body.intro,
             status: req.body.status,
+            content: req.body.content,
             link: req.body.link,
             // deadline: req.body.deadline,
         }, function(err, data) {

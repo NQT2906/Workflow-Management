@@ -74,3 +74,13 @@ body {
     width: 100px;
     margin-bottom: 10px;
 }
+
+#form-content {
+    background-color: #e6e6e6;
+    border-radius: 10px;
+}
+
+/* #form-cell-text {
+    color: blue;
+    margin-right: 50px;
+} */

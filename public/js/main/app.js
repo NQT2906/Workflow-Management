@@ -16,12 +16,13 @@ app.controller('todoController', function($scope, svWorks) {
     $scope.formData = {};
     $scope.createWork = function() {
         $scope.loading = true;
-        if (!$scope.formData.text) {
-            alert("Text mustn't be empty!!!");
+        if (!$scope.formData.intro) {
+            alert("Intro mustn't be empty!!!");
             $scope.loading = false;
         } else {
             var work = {
-                text: $scope.formData.text,
+                intro: $scope.formData.intro,
+                content: $scope.formData.content || '',
                 link: $scope.formData.link || '',
                 status: 0,
                 // deadline: $scope.formData.deadline || '',
@@ -31,8 +32,9 @@ app.controller('todoController', function($scope, svWorks) {
             svWorks.create(work).then(function(res) {
                 $scope.works = res.data;
                 $scope.loading = false;
-                $scope.formData.text = '';
+                $scope.formData.intro = '';
                 $scope.formData.link = '';
+                $scope.formData.content = '';
                 // $scope.formData.deadline = '';
             }, function(err) {
                 if (err) throw err;
@@ -122,19 +124,6 @@ app.controller('todoController', function($scope, svWorks) {
         })
     };
 
-    // $scope.refresh = function() {
-    //     var serverData = Data.query();
-    //     if( serverData !== $scope.works ) {
-    //         $scope.works = serverData;
-    //     }
-    // };
-
-    // $scope.intervalPromise = $interval(function(){
-    //       $scope.refresh();
-    // }, 10000);  
-
-    // // initial load of data
-    // $scope.refresh();
 });
 
 app.run(['editableOptions', function(editableOptions) {

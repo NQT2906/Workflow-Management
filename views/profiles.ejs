@@ -103,7 +103,7 @@
                         </h1>
                     </div>
                     <div id = 'work-list-text'>
-                        <div id = 'cell-text' ng-repeat = 'work in works' ng-if = 'work.status == 1'>
+                        <div id = 'cell-text' ng-repeat = 'work in works' ng-if = 'work.status == 1 && work.email == "<%=user.email%>"'>
                             <div id = 'text' ng-click = 'openModal(work)' data-toggle="modal" 
                             data-target="#contentModal" role="button">
                                 {{ work.intro }}
@@ -158,7 +158,7 @@
                         </h1>
                     </div>
                     <div id = 'work-list-text'>
-                        <div id = 'cell-text' ng-repeat = 'work in works' ng-if = 'work.status == 2'>
+                        <div id = 'cell-text' ng-repeat = 'work in works' ng-if = 'work.status == 2 && work.email == "<%=user.email%>"'>
                             <div id = 'text' ng-click = 'openModal(work)' data-toggle="modal" 
                             data-target="#contentModal" role="button">
                                 {{ work.intro }}

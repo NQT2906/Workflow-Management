@@ -11,7 +11,6 @@ const User = require('./api/models/Users');
 var homeController = require('./api/controllers/homeController');
 var workController = require('./api/controllers/workController');
 var config = require('./config/index');
-const config1 = require('./config');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -41,9 +40,9 @@ passport.deserializeUser(function(id, done) {
 
 // Use the FacebookStrategy within Passport.
 passport.use(new facebookStrategy({
-    clientID: config1.facebook_api_key,
-    clientSecret:config1.facebook_api_secret ,
-    callbackURL: config1.callback_url,
+    clientID: config.facebook_api_key,
+    clientSecret:config.facebook_api_secret ,
+    callbackURL: config.callback_url,
     profileFields: ['id', 'displayName', 'name', 'picture.type(large)', 'email']
 },
 function(token, refreshToken, profile, done) {

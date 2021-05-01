@@ -23,6 +23,9 @@ app.use(morgan('dev'));
 
 app.set('view engine', 'ejs');
 
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' }));
+app.use(passport.initialize());
+app.use(passport.session());
 // Passport session setup.
 passport.serializeUser(function(id, done) {
     console.log('serializeUser________________________________________');
@@ -92,10 +95,6 @@ mongoose.connect(config.getDbConnectionString(), {
     useFindAndModify: false,
     useCreateIndex: true 
 });
-
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 homeController(app);
 workController(app);

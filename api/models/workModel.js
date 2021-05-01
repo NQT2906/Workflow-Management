@@ -8,7 +8,8 @@ var work = new Schema({
     status: Number,
     content: String,
     deadline: Date,
-    timeRegister: Date
+    timeRegister: Date,
+    email: String,
 })
 
 var Works = mongoose.model('Works', work);

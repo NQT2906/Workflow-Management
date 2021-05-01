@@ -27,6 +27,7 @@ module.exports = function(app) {
             content: req.body.content,
             deadline: req.body.deadline,
             timeRegister: req.body.timeRegister,
+            email: req.user.email
         };
 
         Works.create(work, function(err, data) {

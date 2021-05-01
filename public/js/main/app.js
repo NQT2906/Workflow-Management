@@ -88,19 +88,15 @@ app.controller('todoController', function($scope, svWorks, $filter) {
         });
     };
 
-    $scope.getLenSection = function(num) {
+    $scope.getLenSection = function(num, email) {
         len = 0;
         angular.forEach($scope.works, function(work) {
-            if (work.status == num) {
+            if (work.status == num && work.email == email) {
                 len = len + 1;
             };
         })
         return len;
     };
-
-    $scope.getStatus = function(work) {
-        return $scope.headers[work.status];
-    }
 
     $scope.moveTo = function(work, num) {
         $scope.loading = true;

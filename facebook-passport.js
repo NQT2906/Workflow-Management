@@ -1,4 +1,4 @@
-const { facebook_api_key, facebook_api_secret, callback_url } = require("./config");
+const { facebook_api_key, facebook_api_secret, callback_url } = require("./config/index");
 const passport = require('passport');
 const facebookStrategy  = require('passport-facebook').Strategy;
 const User = require('./api/models/Users')

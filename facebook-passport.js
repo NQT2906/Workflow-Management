@@ -5,11 +5,14 @@ const User = require('./api/models/Users')
 
 // Passport session setup.
 passport.serializeUser(function(user, done) {
-    done(null, user.token);
+    done(null, user.uid);
 });
 
-passport.deserializeUser(function(token, done) {
-    User.findOne( {token: token}, function(err, user) {
+passport.deserializeUser(function(uid, done) {
+    // User.findOne( {token: token}, function(err, user) {
+    //     done(err, user);
+    // });
+    User.findOne( {uid: uid}, function(err, user) {
         done(err, user);
     });
 });
@@ -30,15 +33,16 @@ passport.use(new facebookStrategy({
                     return done(err);
                 // if the user is found, then log them in
                 if (user) {
-                    await User.findOne({ 'uid': profile.id }, async function(err, user) {
-                        user.token = token;
-                        user.isLogin = true;
-                        user.save(function(err) {
-                            if(err) 
-                                throw err;
-                            return done(null, user);
-                        })
-                    })
+                    // await User.findOne({ 'uid': profile.id }, async function(err, user) {
+                    //     user.token = token;
+                    //     user.isLogin = true;
+                    //     user.save(function(err) {
+                    //         if(err) 
+                    //             throw err;
+                    //         return done(null, user);
+                    //     })
+                    // })
+                    return (null, user);
                 } else {
                     // if there is no user found with that facebook id, create them
                     var newUser = new User();

@@ -15,18 +15,23 @@ module.exports = function(app) {
     });
 
     app.get('/login', function(req, res){
-        User.findOne( {token: store.get('token')}, function(err, user) {
-            if(user){
-                user.isLogin = true;
-                user.save(function(err) {
-                    if(err) 
-                        throw err;
-                });
-                    res.render('profiles', { user: user });
-            } else {
-                res.redirect('/auth/facebook');
-            }
-        });
+        // User.findOne( {token: store.get('token')}, function(err, user) {
+        //     if(user){
+        //         user.isLogin = true;
+        //         user.save(function(err) {
+        //             if(err) 
+        //                 throw err;
+        //         });
+        //             res.render('profiles', { user: user });
+        //     } else {
+        //         res.redirect('/auth/facebook');
+        //     }
+        // });
+        if(req.user) {
+            res.render('profiles', { user: req.user });
+        } else {
+            res.redirect('/auth/facebook')
+        }
     });
 
     app.get('/auth/facebook', passport.authenticate('facebook',{scope:'email'}));

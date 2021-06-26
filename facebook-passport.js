@@ -42,7 +42,7 @@ passport.use(new facebookStrategy({
                     //         return done(null, user);
                     //     })
                     // })
-                    return (null, user);
+                    return done(null, user);
                 } else {
                     // if there is no user found with that facebook id, create them
                     var newUser = new User();

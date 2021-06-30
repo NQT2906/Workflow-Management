@@ -22,6 +22,6 @@
     "store": "^2.0.12"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.8"
   }
 }

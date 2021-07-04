@@ -116,7 +116,6 @@ app.controller('todoController', function($scope, svWorks, $filter) {
             scope: $scope,
         })
     };
-    
 
     // $scope.opened = {};
 
@@ -129,6 +128,16 @@ app.controller('todoController', function($scope, svWorks, $filter) {
     //         $scope.$destroy();
     //     });
 	// };
+
+    $scope.minusTwoDate = function(work) {
+        var datetime = new Date();
+        var deadline = new Date(work.deadline);
+
+        if(deadline.getDay() - datetime.getDay()) {
+            return true;
+        }
+        return false;
+    };
 
 });
 

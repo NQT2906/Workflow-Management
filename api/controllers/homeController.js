@@ -10,7 +10,7 @@ module.exports = function(app) {
     })
 
     app.get('/success', async (req, res) => {
-        store.set('token', req.user.token);
+        // store.set('token', req.user.token);
         res.render('profiles', { user: req.user });
     });
 
@@ -46,15 +46,15 @@ module.exports = function(app) {
         // req.logOut();
         // res.redirect('/');
         req.logout();
-        User.findOne( {token: store.get('token')}, function(err, user) {
-            if(user) {
-                user.isLogin = false;
-                user.save(function(err) {
-                    if(err) 
-                        throw err;
-                });
-            }
-        });
+        // User.findOne( {token: store.get('token')}, function(err, user) {
+        //     if(user) {
+        //         user.isLogin = false;
+        //         user.save(function(err) {
+        //             if(err) 
+        //                 throw err;
+        //         });
+        //     }
+        // });
         res.redirect('/');
     });
   

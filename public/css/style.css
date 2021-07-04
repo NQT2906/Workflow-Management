@@ -49,6 +49,19 @@ body {
     align-items: center;
 }
 
+#cell-text-deadline {
+    display: flex;
+    flex-direction: row;
+    border-style: none;
+    border-radius: 20px;
+    background-color: #ff0000;
+    margin: 10px;
+    height: 70px;
+    width: 95%;
+    justify-items: center;
+    align-items: center;
+}
+
 #cell-text:hover #btn-dropdown {
     display: block;
 }
